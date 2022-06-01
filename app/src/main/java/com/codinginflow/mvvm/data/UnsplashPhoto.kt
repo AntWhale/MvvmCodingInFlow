@@ -8,7 +8,7 @@ data class UnsplashPhoto(
     val id:String,
     val description: String?,
     val urls: UnsplashPhotoUrls,
-    val users: UnsplashPhotoUser
+    val user: UnsplashPhotoUser
 ): Parcelable {
 
     @Parcelize
