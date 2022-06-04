@@ -11,7 +11,7 @@ import com.codinginflow.mvvm.R
 import com.codinginflow.mvvm.data.UnsplashPhoto
 import com.codinginflow.mvvm.databinding.ItemUnsplashPhotoBinding
 
-class UnsplashPhotoAdapter: PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapter.PhotoViewHolder>(PHOTO_COMPARATOR) {
+class UnsplashPhotoAdapter(private val listener: OnItemClickListener): PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapter.PhotoViewHolder>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val binding = ItemUnsplashPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,8 +28,20 @@ class UnsplashPhotoAdapter: PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapte
     }
 
 
+    inner class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) : RecyclerView.ViewHolder(binding.root){
 
-    class PhotoViewHolder(private val binding: ItemUnsplashPhotoBinding) : RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if(position != RecyclerView.NO_POSITION){
+                    val item = getItem(position)
+                    if(item != null){
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
+
         fun bind(photo: UnsplashPhoto){
             binding.apply {
                 Glide.with(itemView)
@@ -44,6 +56,11 @@ class UnsplashPhotoAdapter: PagingDataAdapter<UnsplashPhoto, UnsplashPhotoAdapte
         }
 
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(photo: UnsplashPhoto)
+    }
+
     companion object {
         private val PHOTO_COMPARATOR = object: DiffUtil.ItemCallback<UnsplashPhoto>(){
             override fun areItemsTheSame(oldItem: UnsplashPhoto, newItem: UnsplashPhoto) =
