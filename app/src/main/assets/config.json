@@ -1,0 +1,7 @@
+{
+  "API_URL": "https://api.unsplash.com/",
+  "FILE_URL": "",
+  "WEB_VIEW_URL": "https://coam.appgdev.co.kr/ ",
+  "CONNECT_TIME_OUT": 10000,
+  "READ_TIME_OUT": 10000
+}

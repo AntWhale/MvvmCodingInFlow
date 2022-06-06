@@ -13,7 +13,7 @@ class GalleryViewModel @Inject constructor(
     state: SavedStateHandle): ViewModel() {
     private val currentQuery = state.getLiveData(CURRENT_QUERY, DEFAULT_QUERY)
     //val photos = repository.getSearchResults("cats")
-    val photos = currentQuery.switchMap { queryString ->
+    val photos = currentQuery.switchMap{ queryString ->
         repository.getSearchResults(queryString).cachedIn(viewModelScope)
     }
 

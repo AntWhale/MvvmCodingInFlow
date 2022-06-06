@@ -1,5 +1,6 @@
 package com.codinginflow.mvvm.di
 
+import com.codinginflow.mvvm.Config
 import com.codinginflow.mvvm.api.UnsplashApi
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,8 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl(UnsplashApi.BASE_URL)
+            //.baseUrl(UnsplashApi.BASE_URL)
+            .baseUrl(Config.INSTANCE.apiUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
